@@ -5,7 +5,7 @@ const initialState = {
 };
 
 //createSlice
-createSlice({
+const counterSlice = createSlice({
 	name: 'counter',
 	initialState,
 	reducers: {
@@ -19,7 +19,27 @@ createSlice({
 			state.counter = 0;
 		},
 		incrementBy: (state, action) => {
-			state.counter += action.payload.amount;
+			state.counter += action.payload;
 		},
 	},
 });
+
+//generate action
+const { increment, decrement, resetcounter, incrementBy } = counterSlice.actions;
+
+//generate reducer
+const counterReducer = counterSlice.reducer;
+
+//store
+const store = configureStore({
+	reducer: counterReducer,
+});
+
+//dispatch
+store.dispatch(increment());
+store.dispatch(decrement());
+store.dispatch(resetcounter());
+
+store.dispatch(incrementBy(200));
+
+console.log(store.getState());
